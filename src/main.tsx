@@ -5,19 +5,17 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import PaginationListView from './pages/PaginationListView.tsx';
 import LoadMoreListView from './pages/LoadMoreListView.tsx';
 import PokemonDetail from './pages/Detail.tsx';
+import App from './App.tsx';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <PaginationListView />,
-  },
-  {
-    path: '/load-more-listing',
-    element: <LoadMoreListView />,
-  },
-  {
-    path: '/pokemon/:id',
-    element: <PokemonDetail />,
+    element: <App />, // For Layout
+    children: [
+      { index: true, element: <PaginationListView /> },
+      { path: 'load-more-listing', element: <LoadMoreListView /> },
+      { path: 'pokemon/:id', element: <PokemonDetail /> },
+    ],
   },
 ]);
 
