@@ -1,4 +1,10 @@
+import ListingIntro from '../components/ListingIntro';
+
 const LoadMoreListView = () => {
-  return <div>LoadMoreListView</div>;
+  return (
+    <>
+      <ListingIntro viewType='load-more' />
+    </>
+  );
 };
 export default LoadMoreListView;
