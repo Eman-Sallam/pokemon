@@ -3,6 +3,8 @@ export interface PokemonListResponse {
   next: string | null;
   previous: string | null;
   results: PokemonNameAPI[];
+  pages: PokemonListResponse[];
+  pageParams: unknown[];
 }
 
 export interface PokemonNameAPI {

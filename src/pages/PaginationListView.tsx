@@ -7,6 +7,7 @@ import { POKEMON_IMAGE_BASE } from '../constants';
 import { Link } from 'react-router-dom';
 import type { PokemonNameAPI } from '../types/pokemon';
 import Pagination from '../components/Pagination';
+import { getIdFromUrl } from '../utils/getIdFromUrl';
 
 const pageSize = 10;
 const skeletonCount = pageSize;
@@ -18,11 +19,6 @@ const PaginationListView = () => {
     page,
     pageSize
   );
-
-  const getIdFromUrl = (url: string): number | undefined => {
-    const idStr = url.split('/').filter(Boolean).pop();
-    return idStr ? parseInt(idStr, 10) : undefined;
-  };
 
   const pokemonList: PokemonNameAPI[] = data?.results || [];
   const totalCount = data?.count || 0;
