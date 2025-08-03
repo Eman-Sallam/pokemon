@@ -6,6 +6,7 @@ import api from '../lib/axios';
 import type { PokemonDetailResponse } from '../types/pokemon';
 import ruler from '../assets/ruler.svg';
 import weightIco from '../assets/weight.svg';
+import SkeletonDetails from '../components/SkeletonDetails';
 
 const PokemonDetail = () => {
   const { id } = useParams();
@@ -32,13 +33,7 @@ const PokemonDetail = () => {
     sprites,
   } = data;
 
-  if (isLoading) {
-    return (
-      <div className='flex justify-center items-center h-[50vh]'>
-        <span className='loading loading-spinner loading-lg text-primary'></span>
-      </div>
-    );
-  }
+  if (isLoading) return <SkeletonDetails />;
 
   if (isError || !data) {
     return (
