@@ -1,6 +1,6 @@
 # Pokémon 🧭
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-green?style=for-the-badge)](https://pokemon-nemo.vercel.app)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-green?style=for-the-badge)](https://pokescope.vercel.app/)
 
 A modern, type-safe Pokémon browser built with **React**, **Vite**, **TypeScript**, **Tailwind CSS**, **React Query**, and **DaisyUI**. Explore Pokémon using both pagination and "Load More" view, with animated UI, error boundaries, and suspense fallback.
 
