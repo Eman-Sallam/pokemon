@@ -8,6 +8,7 @@ import ruler from '../assets/ruler.svg';
 import weightIco from '../assets/weight.svg';
 import SkeletonDetails from '../components/SkeletonDetails';
 import ErrorMessage from '../components/ErrorMessage';
+import placeholderImg from '../assets/ditto-placeholder.png';
 
 const PokemonDetail = () => {
   const { id } = useParams();
@@ -66,9 +67,18 @@ const PokemonDetail = () => {
             <div className='avatar'>
               <div className='h-72 rounded-full bg-gray-100'>
                 <img
-                  src={sprites.other['official-artwork'].front_default}
+                  src={
+                    sprites?.other?.['official-artwork']?.front_default ||
+                    placeholderImg
+                  }
                   alt={name}
-                  className='object-contain'
+                  className='object-contain transition-all duration-300'
+                  loading='lazy'
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    target.onerror = null; // prevent infinite fallback loop
+                    target.src = placeholderImg;
+                  }}
                 />
               </div>
             </div>

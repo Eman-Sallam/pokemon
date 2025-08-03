@@ -1,3 +1,5 @@
+import placeholderImg from '../assets/ditto-placeholder.png';
+
 type Props = {
   name: string;
   image: string;
@@ -7,13 +9,19 @@ type Props = {
 const PokemonCard = ({ name, image, id }: Props) => {
   return (
     <>
-      <div className='card bg-base-100 w-full shadow-sm hover:shadow-xl transition'>
+      <div className='card bg-base-100 w-full  h-full shadow-sm hover:shadow-xl transition'>
         <div className='px-4 pt-4'>
           <figure className=' bg-gray-100  rounded-lg'>
             <img
               src={image}
               alt={name}
-              className='rounded-xl h-44 object-contain'
+              loading='lazy'
+              onError={(e) => {
+                const target = e.currentTarget;
+                target.onerror = null; // prevent infinite loop
+                target.src = placeholderImg;
+              }}
+              className='rounded-xl h-44 object-contain transition-all duration-300'
             />
           </figure>
         </div>
