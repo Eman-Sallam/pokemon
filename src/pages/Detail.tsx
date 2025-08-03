@@ -9,6 +9,7 @@ import weightIco from '../assets/weight.svg';
 import SkeletonDetails from '../components/SkeletonDetails';
 import ErrorMessage from '../components/ErrorMessage';
 import placeholderImg from '../assets/ditto-placeholder.png';
+import ErrorBoundary from '../components/ErrorBoundary';
 
 const PokemonDetail = () => {
   const { id } = useParams();
@@ -46,124 +47,125 @@ const PokemonDetail = () => {
         <ArrowLeftIcon className='size-4' />
         Back to List
       </Link>
+      <ErrorBoundary>
+        {/* Pokemon Detail Box */}
+        <div className='max-w-4xl mx-auto'>
+          {/* Header */}
+          <div className='bg-gradient-to-r to-sky-500 from-indigo-500 p-4 lg:p-6 rounded-t-lg text-white text-center'>
+            <h1 className='text-lg lg:text-2xl font-bold capitalize flex justify-center items-center gap-1 mb-2'>
+              <BoltIcon className='size-6' />
+              {name}
+            </h1>
+            <p className='text-sm text-gray-200'>
+              #{String(id).padStart(3, '0')}
+            </p>
+          </div>
 
-      {/* Pokemon Detail Box */}
-      <div className='max-w-4xl mx-auto'>
-        {/* Header */}
-        <div className='bg-gradient-to-r to-sky-500 from-indigo-500 p-4 lg:p-6 rounded-t-lg text-white text-center'>
-          <h1 className='text-lg lg:text-2xl font-bold capitalize flex justify-center items-center gap-1 mb-2'>
-            <BoltIcon className='size-6' />
-            {name}
-          </h1>
-          <p className='text-sm text-gray-200'>
-            #{String(id).padStart(3, '0')}
-          </p>
-        </div>
-
-        {/* Content */}
-        <div className='bg-white rounded-b-xl p-6 grid md:grid-cols-2 gap-12 shadow'>
-          {/* Left Side */}
-          <div className='flex flex-col items-center'>
-            <div className='avatar'>
-              <div className='h-60 lg:h-72 rounded-full bg-gray-100'>
-                <img
-                  src={
-                    sprites?.other?.['official-artwork']?.front_default ||
-                    placeholderImg
-                  }
-                  alt={name}
-                  className='object-contain transition-all duration-300'
-                  loading='lazy'
-                  onError={(e) => {
-                    const target = e.currentTarget;
-                    target.onerror = null; // prevent infinite fallback loop
-                    target.src = placeholderImg;
-                  }}
-                />
-              </div>
-            </div>
-
-            <div className='flex gap-2 mt-6'>
-              {types.map((t: any) => (
-                <span
-                  key={t.type.name}
-                  className='badge badge-secondary rounded-full capitalize'
-                >
-                  {t.type.name}
-                </span>
-              ))}
-            </div>
-
-            <div className='mt-6 grid grid-cols-2 gap-3 lg:gap-6  w-full'>
-              <div className='text-center bg-gray-100 p-4 rounded-md'>
-                <p className='text-sm text-mute mb-1 flex items-center justify-center gap-1'>
-                  <img src={ruler} alt='Height' className='w-5 ' />
-                  Height
-                </p>
-                <p className='font-bold'>{height / 10} m</p>
-              </div>
-              <div className='text-center bg-gray-100 p-4 rounded-md'>
-                <p className='text-sm text-mute mb-1 flex items-center justify-center gap-1'>
+          {/* Content */}
+          <div className='bg-white rounded-b-xl p-6 grid md:grid-cols-2 gap-12 shadow'>
+            {/* Left Side */}
+            <div className='flex flex-col items-center'>
+              <div className='avatar'>
+                <div className='h-60 lg:h-72 rounded-full bg-gray-100'>
                   <img
-                    src={weightIco}
-                    alt='weight'
-                    className='w-5 fill-mute '
+                    src={
+                      sprites?.other?.['official-artwork']?.front_default ||
+                      placeholderImg
+                    }
+                    alt={name}
+                    className='object-contain transition-all duration-300'
+                    loading='lazy'
+                    onError={(e) => {
+                      const target = e.currentTarget;
+                      target.onerror = null; // prevent infinite fallback loop
+                      target.src = placeholderImg;
+                    }}
                   />
-                  Weight
-                </p>
-                <p className='font-bold'>{weight / 10} kg</p>
+                </div>
+              </div>
+
+              <div className='flex gap-2 mt-6'>
+                {types.map((t: any) => (
+                  <span
+                    key={t.type.name}
+                    className='badge badge-secondary rounded-full capitalize'
+                  >
+                    {t.type.name}
+                  </span>
+                ))}
+              </div>
+
+              <div className='mt-6 grid grid-cols-2 gap-3 lg:gap-6  w-full'>
+                <div className='text-center bg-gray-100 p-4 rounded-md'>
+                  <p className='text-sm text-mute mb-1 flex items-center justify-center gap-1'>
+                    <img src={ruler} alt='Height' className='w-5 ' />
+                    Height
+                  </p>
+                  <p className='font-bold'>{height / 10} m</p>
+                </div>
+                <div className='text-center bg-gray-100 p-4 rounded-md'>
+                  <p className='text-sm text-mute mb-1 flex items-center justify-center gap-1'>
+                    <img
+                      src={weightIco}
+                      alt='weight'
+                      className='w-5 fill-mute '
+                    />
+                    Weight
+                  </p>
+                  <p className='font-bold'>{weight / 10} kg</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Side */}
+            <div>
+              <h3 className='font-bold text-lg mb-3'>Base Stats</h3>
+              <ul className='space-y-2 mb-6'>
+                {stats.map((s: any) => (
+                  <li key={s.stat.name}>
+                    <div className='flex justify-between text-sm'>
+                      <span className='capitalize'>{s.stat.name}</span>
+                      <span>{s.base_stat}</span>
+                    </div>
+                    <progress
+                      className='progress progress-neutral w-full'
+                      value={s.base_stat}
+                      max={250}
+                    ></progress>
+                  </li>
+                ))}
+              </ul>
+
+              <h3 className='font-bold text-lg mb-3'>Abilities</h3>
+              <ul className='mb-6 space-y-2'>
+                {abilities.map((a: any) => (
+                  <li key={a.ability.name}>
+                    <span
+                      className={`badge rounded-full capitalize font-semibold ${
+                        a.is_hidden
+                          ? 'badge-ghost bg-gray-100'
+                          : 'badge-outline border-gray-300 '
+                      }`}
+                    >
+                      {a.ability.name}
+                    </span>
+                    {a.is_hidden && (
+                      <span className='text-xs ml-2 text-mute'>(Hidden)</span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+
+              <div className='text-sm'>
+                <h3 className='font-bold text-lg mb-2'>Base Experience</h3>
+                <span className='text-sky-500 font-bold text-xl'>
+                  {base_experience} XP
+                </span>
               </div>
             </div>
           </div>
-
-          {/* Right Side */}
-          <div>
-            <h3 className='font-bold text-lg mb-3'>Base Stats</h3>
-            <ul className='space-y-2 mb-6'>
-              {stats.map((s: any) => (
-                <li key={s.stat.name}>
-                  <div className='flex justify-between text-sm'>
-                    <span className='capitalize'>{s.stat.name}</span>
-                    <span>{s.base_stat}</span>
-                  </div>
-                  <progress
-                    className='progress progress-neutral w-full'
-                    value={s.base_stat}
-                    max={250}
-                  ></progress>
-                </li>
-              ))}
-            </ul>
-
-            <h3 className='font-bold text-lg mb-3'>Abilities</h3>
-            <ul className='mb-6 space-y-2'>
-              {abilities.map((a: any) => (
-                <li key={a.ability.name}>
-                  <span
-                    className={`badge rounded-full capitalize font-semibold ${
-                      a.is_hidden
-                        ? 'badge-ghost bg-gray-100'
-                        : 'badge-outline border-gray-300 '
-                    }`}
-                  >
-                    {a.ability.name}
-                  </span>
-                  {a.is_hidden && (
-                    <span className='text-xs ml-2 text-mute'>(Hidden)</span>
-                  )}
-                </li>
-              ))}
-            </ul>
-
-            <div className='text-sm'>
-              <h3 className='font-bold text-lg mb-2'>Base Experience</h3>
-              <span className='text-sky-500 font-bold text-xl'>
-                {base_experience} XP
-              </span>
-            </div>
-          </div>
         </div>
-      </div>
+      </ErrorBoundary>
     </>
   );
 };

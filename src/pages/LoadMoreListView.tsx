@@ -7,6 +7,7 @@ import { getIdFromUrl } from '../utils/getIdFromUrl';
 import { useInfinitePokemonList } from '../hooks/useInfinitePokemonList';
 import type { PokemonNameAPI } from '../types/pokemon';
 import ErrorMessage from '../components/ErrorMessage';
+import ErrorBoundary from '../components/ErrorBoundary';
 
 const pageSize = 10;
 
@@ -26,54 +27,55 @@ const LoadMoreListView = () => {
   return (
     <>
       <ListingIntro viewType='load-more' isLoading={isLoading} />
-
-      {isLoading ? (
-        <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-5'>
-          {Array.from({ length: pageSize }).map((_, i) => (
-            <SkeletonCard key={i} />
-          ))}
-        </div>
-      ) : isError ? (
-        <ErrorMessage message='Error While loading Pokémon List.' />
-      ) : (
-        <>
+      <ErrorBoundary>
+        {isLoading ? (
           <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-5'>
-            {allPokemon.map((pokemon) => {
-              const id = getIdFromUrl(pokemon.url);
-              const image = `${POKEMON_IMAGE_BASE}/other/official-artwork/${id}.png`;
-
-              return (
-                <Link to={`/pokemon/${id}`} key={pokemon.name}>
-                  <PokemonCard name={pokemon.name} image={image} id={id} />
-                </Link>
-              );
-            })}
+            {Array.from({ length: pageSize }).map((_, i) => (
+              <SkeletonCard key={i} />
+            ))}
           </div>
+        ) : isError ? (
+          <ErrorMessage message='Error While loading Pokémon List.' />
+        ) : (
+          <>
+            <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-5'>
+              {allPokemon.map((pokemon) => {
+                const id = getIdFromUrl(pokemon.url);
+                const image = `${POKEMON_IMAGE_BASE}/other/official-artwork/${id}.png`;
 
-          <div className='flex flex-col items-center mt-6'>
-            {hasNextPage && !isFetchingNextPage && (
-              <button
-                className='btn btn-outline'
-                onClick={() => fetchNextPage()}
-              >
-                Load More
-              </button>
-            )}
-
-            <div className='flex flex-col items-center justify-center mt-6'>
-              {isFetchingNextPage && (
-                <div className='flex items-center gap-2  mb-3 text-neutral-500'>
-                  <span className='loading loading-spinner loading-md text-primary'></span>
-                  Loading more Pokémon...
-                </div>
-              )}
-              <p className='text-sm text-neutral-500 mt-1'>
-                Showing {allPokemon.length} Pokémon
-              </p>
+                return (
+                  <Link to={`/pokemon/${id}`} key={pokemon.name}>
+                    <PokemonCard name={pokemon.name} image={image} id={id} />
+                  </Link>
+                );
+              })}
             </div>
-          </div>
-        </>
-      )}
+
+            <div className='flex flex-col items-center mt-6'>
+              {hasNextPage && !isFetchingNextPage && (
+                <button
+                  className='btn btn-outline'
+                  onClick={() => fetchNextPage()}
+                >
+                  Load More
+                </button>
+              )}
+
+              <div className='flex flex-col items-center justify-center mt-6'>
+                {isFetchingNextPage && (
+                  <div className='flex items-center gap-2  mb-3 text-neutral-500'>
+                    <span className='loading loading-spinner loading-md text-primary'></span>
+                    Loading more Pokémon...
+                  </div>
+                )}
+                <p className='text-sm text-neutral-500 mt-1'>
+                  Showing {allPokemon.length} Pokémon
+                </p>
+              </div>
+            </div>
+          </>
+        )}
+      </ErrorBoundary>
     </>
   );
 };

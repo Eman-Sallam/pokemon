@@ -9,6 +9,7 @@ import type { PokemonNameAPI } from '../types/pokemon';
 import Pagination from '../components/Pagination';
 import { getIdFromUrl } from '../utils/getIdFromUrl';
 import ErrorMessage from '../components/ErrorMessage';
+import ErrorBoundary from '../components/ErrorBoundary';
 
 const pageSize = 10;
 const skeletonCount = pageSize;
@@ -28,43 +29,46 @@ const PaginationListView = () => {
   return (
     <>
       <ListingIntro viewType='pagination' isLoading={isLoading} />
-      {isLoading ? (
-        <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-5'>
-          {Array.from({ length: skeletonCount }).map((_, index) => (
-            <SkeletonCard key={index} />
-          ))}
-        </div>
-      ) : isError ? (
-        <ErrorMessage message='Error While loading Pokémon List.' />
-      ) : (
-        <>
-          <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-5'>
-            {pokemonList.map((pokemon) => {
-              const id = getIdFromUrl(pokemon.url);
-              const image = `${POKEMON_IMAGE_BASE}/other/official-artwork/${id}.png`;
-              return (
-                <Link to={`/pokemon/${id}`} key={pokemon.name}>
-                  <PokemonCard name={pokemon.name} image={image} id={id} />
-                </Link>
-              );
-            })}
-          </div>
 
-          {isFetching ? (
-            <p className='text-center text-sm mt-2'>
-              <span className='loading loading-spinner loading-md me-2'></span>
-              Fetching next page…
-            </p>
-          ) : (
-            <Pagination
-              page={page}
-              totalPages={totalPages}
-              perPage={pageSize}
-              onPageChange={(p) => setPage(p)}
-            />
-          )}
-        </>
-      )}
+      <ErrorBoundary>
+        {isLoading ? (
+          <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-5'>
+            {Array.from({ length: skeletonCount }).map((_, index) => (
+              <SkeletonCard key={index} />
+            ))}
+          </div>
+        ) : isError ? (
+          <ErrorMessage message='Error While loading Pokémon List.' />
+        ) : (
+          <>
+            <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-5'>
+              {pokemonList.map((pokemon) => {
+                const id = getIdFromUrl(pokemon.url);
+                const image = `${POKEMON_IMAGE_BASE}/other/official-artwork/${id}.png`;
+                return (
+                  <Link to={`/pokemon/${id}`} key={pokemon.name}>
+                    <PokemonCard name={pokemon.name} image={image} id={id} />
+                  </Link>
+                );
+              })}
+            </div>
+
+            {isFetching ? (
+              <p className='text-center text-sm mt-2'>
+                <span className='loading loading-spinner loading-md me-2'></span>
+                Fetching next page…
+              </p>
+            ) : (
+              <Pagination
+                page={page}
+                totalPages={totalPages}
+                perPage={pageSize}
+                onPageChange={(p) => setPage(p)}
+              />
+            )}
+          </>
+        )}
+      </ErrorBoundary>
     </>
   );
 };
