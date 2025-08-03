@@ -11,7 +11,7 @@ const NotFoundPokemon = () => (
     <h2 className='text-3xl font-bold text-gray-800 mb-2'>Pokémon Not Found</h2>
     <p className='text-lg text-gray-600 mb-6'>
       {' '}
-      The Pokémon you’re looking for doesn’t exist or the ID is invalid.
+      The Pokémon you’re looking for doesn’t exist.
     </p>
     <Link to='/' className='btn btn-neutral'>
       Back to Home
