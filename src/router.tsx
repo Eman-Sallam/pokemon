@@ -1,8 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom';
-import PaginationListView from './pages/PaginationListView.tsx';
-import LoadMoreListView from './pages/LoadMoreListView.tsx';
-import PokemonDetail from './pages/Detail.tsx';
-import App from './App.tsx';
+import { lazy } from 'react';
+
+const App = lazy(() => import('./App'));
+const PaginationListView = lazy(() => import('./pages/PaginationListView'));
+const LoadMoreListView = lazy(() => import('./pages/LoadMoreListView'));
+const PokemonDetail = lazy(() => import('./pages/Detail'));
 
 export const router = createBrowserRouter([
   {
