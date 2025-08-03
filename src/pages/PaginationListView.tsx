@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { usePokemonList } from '../hooks/usePokemonList';
 import { POKEMON_IMAGE_BASE } from '../constants';
 import { Link } from 'react-router-dom';
@@ -15,7 +16,16 @@ const pageSize = 10;
 const skeletonCount = pageSize;
 
 const PaginationListView = () => {
-  const [page, setPage] = useState<number>(1);
+  const { page: pageParam } = useParams(); // get param from url
+  const navigate = useNavigate(); // allow navigation on invalid
+  const parsedPage = Math.max(parseInt(pageParam || '1', 10) || 1, 1); // parse + fallback
+  const [page, setPage] = useState<number>(parsedPage); // setState from URL
+
+  useEffect(() => {
+    if (page !== parsedPage) {
+      setPage(parsedPage);
+    }
+  }, [page, parsedPage]);
 
   const { data, isLoading, isError, isFetching } = usePokemonList(
     page,
@@ -25,6 +35,13 @@ const PaginationListView = () => {
   const pokemonList: PokemonNameAPI[] = data?.results || [];
   const totalCount = data?.count || 0;
   const totalPages = Math.ceil(totalCount / pageSize);
+
+  // guard invalid page (greater than max)
+  useEffect(() => {
+    if (totalPages > 0 && page > totalPages) {
+      navigate('/pagination/1', { replace: true });
+    }
+  }, [navigate, page, totalPages]);
 
   return (
     <>
@@ -63,7 +80,10 @@ const PaginationListView = () => {
                 page={page}
                 totalPages={totalPages}
                 perPage={pageSize}
-                onPageChange={(p) => setPage(p)}
+                onPageChange={(p) => {
+                  setPage(p);
+                  navigate(`/pagination/${p}`);
+                }}
               />
             )}
           </>
@@ -72,4 +92,5 @@ const PaginationListView = () => {
     </>
   );
 };
+
 export default PaginationListView;

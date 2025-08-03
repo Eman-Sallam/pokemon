@@ -13,6 +13,7 @@ export const router = createBrowserRouter([
     element: <App />,
     children: [
       { index: true, element: <PaginationListView /> },
+      { path: 'pagination/:page', element: <PaginationListView /> },
       { path: 'load-more-listing', element: <LoadMoreListView /> },
       { path: 'pokemon/:id', element: <PokemonDetail /> },
       { path: '*', element: <NotFoundPage /> },
