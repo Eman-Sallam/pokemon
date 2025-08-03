@@ -35,6 +35,8 @@ A modern, type-safe Pokémon browser built with **React**, **Vite**, **TypeScrip
 - 🔍 Pokémon Detail Pages with stats, abilities, types
 - 🪄 Skeleton Loaders & Pokémon Spinners & Image Placeholder for better UX
 - 💥 Catch runtime crashes and provide fallback UI with retry options with Error Boundaries
+- ❌ Graceful 404 Page for unmatched routes
+- ❓ Pokémon Not Found handling for invalid Pokémon IDs
 - 📱 Responsive Design
 - 🎯 Type-safe API handling with `axios` + `react-query`
 - 🧭 Smooth routing with React Router v7
