@@ -1,4 +1,4 @@
-import placeholderImg from '../assets/ditto-placeholder.png';
+import placeholderImg from '../../assets/ditto-placeholder.png';
 
 type Props = {
   name: string;

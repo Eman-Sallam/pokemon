@@ -1,15 +1,15 @@
 import { useState } from 'react';
-import ListingIntro from '../components/ListingIntro';
-import PokemonCard from '../components/PokemonCard';
 import { usePokemonList } from '../hooks/usePokemonList';
-import SkeletonCard from '../components/SkeletonCard';
 import { POKEMON_IMAGE_BASE } from '../constants';
 import { Link } from 'react-router-dom';
 import type { PokemonNameAPI } from '../types/pokemon';
-import Pagination from '../components/Pagination';
 import { getIdFromUrl } from '../utils/getIdFromUrl';
-import ErrorMessage from '../components/ErrorMessage';
-import ErrorBoundary from '../components/ErrorBoundary';
+import ErrorBoundary from '../components/shared/ErrorBoundary';
+import ErrorMessage from '../components/shared/ErrorMessage';
+import ListingIntro from '../components/PokemonListing/ListingIntro';
+import Pagination from '../components/PokemonListing/Pagination';
+import PokemonCard from '../components/PokemonListing/PokemonCard';
+import SkeletonCard from '../components/PokemonListing/SkeletonCard';
 
 const pageSize = 10;
 const skeletonCount = pageSize;

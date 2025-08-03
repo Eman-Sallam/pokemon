@@ -1,5 +1,5 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
-import { getVisiblePages } from '../utils/getVisiblePages';
+import { getVisiblePages } from '../../utils/getVisiblePages';
 
 type Props = {
   page: number;

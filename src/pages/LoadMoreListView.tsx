@@ -1,13 +1,13 @@
-import ListingIntro from '../components/ListingIntro';
-import PokemonCard from '../components/PokemonCard';
-import SkeletonCard from '../components/SkeletonCard';
 import { POKEMON_IMAGE_BASE } from '../constants';
 import { Link } from 'react-router-dom';
 import { getIdFromUrl } from '../utils/getIdFromUrl';
 import { useInfinitePokemonList } from '../hooks/useInfinitePokemonList';
 import type { PokemonNameAPI } from '../types/pokemon';
-import ErrorMessage from '../components/ErrorMessage';
-import ErrorBoundary from '../components/ErrorBoundary';
+import ErrorBoundary from '../components/shared/ErrorBoundary';
+import ErrorMessage from '../components/shared/ErrorMessage';
+import ListingIntro from '../components/PokemonListing/ListingIntro';
+import PokemonCard from '../components/PokemonListing/PokemonCard';
+import SkeletonCard from '../components/PokemonListing/SkeletonCard';
 
 const pageSize = 10;
 
