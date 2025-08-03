@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import type { PokemonNameAPI } from '../types/pokemon';
 import Pagination from '../components/Pagination';
 import { getIdFromUrl } from '../utils/getIdFromUrl';
+import ErrorMessage from '../components/ErrorMessage';
 
 const pageSize = 10;
 const skeletonCount = pageSize;
@@ -26,7 +27,7 @@ const PaginationListView = () => {
 
   return (
     <>
-      <ListingIntro viewType='pagination' />
+      <ListingIntro viewType='pagination' isLoading={isLoading} />
       {isLoading ? (
         <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5'>
           {Array.from({ length: skeletonCount }).map((_, index) => (
@@ -34,9 +35,7 @@ const PaginationListView = () => {
           ))}
         </div>
       ) : isError ? (
-        <div className='text-center my-8 text-error'>
-          Error loading Pokémon. Please try again.
-        </div>
+        <ErrorMessage message='Error While loading Pokémon List.' />
       ) : (
         <>
           <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5'>

@@ -7,18 +7,24 @@ import type { PokemonDetailResponse } from '../types/pokemon';
 import ruler from '../assets/ruler.svg';
 import weightIco from '../assets/weight.svg';
 import SkeletonDetails from '../components/SkeletonDetails';
+import ErrorMessage from '../components/ErrorMessage';
 
 const PokemonDetail = () => {
   const { id } = useParams();
 
-  const { data, isLoading, isError } = useQuery<PokemonDetailResponse>({
-    queryKey: ['pokemon', id],
-    queryFn: async () => {
-      const res = await api.get(`/pokemon/${id}`);
-      return res.data;
-    },
-    enabled: !!id,
-  });
+  const { data, isLoading, isFetching, isError } =
+    useQuery<PokemonDetailResponse>({
+      queryKey: ['pokemon', id],
+      queryFn: async () => {
+        const res = await api.get(`/pokemon/${id}`);
+        return res.data;
+      },
+      enabled: !!id,
+    });
+
+  if (isLoading || isFetching) return <SkeletonDetails />;
+
+  if (isError) return <ErrorMessage message='Error loading Pokémon Details.' />;
 
   if (!data) return null;
 
@@ -32,16 +38,6 @@ const PokemonDetail = () => {
     abilities,
     sprites,
   } = data;
-
-  if (isLoading) return <SkeletonDetails />;
-
-  if (isError || !data) {
-    return (
-      <div className='text-center mt-10 text-error'>
-        Error loading Pokémon details. Try again later.
-      </div>
-    );
-  }
 
   return (
     <>
@@ -123,7 +119,7 @@ const PokemonDetail = () => {
                   <progress
                     className='progress progress-neutral w-full'
                     value={s.base_stat}
-                    max={150}
+                    max={250}
                   ></progress>
                 </li>
               ))}
@@ -149,12 +145,12 @@ const PokemonDetail = () => {
               ))}
             </ul>
 
-            <p className='text-sm'>
+            <div className='text-sm'>
               <h3 className='font-bold text-lg mb-2'>Base Experience</h3>
               <span className='text-sky-500 font-bold text-xl'>
                 {base_experience} XP
               </span>
-            </p>
+            </div>
           </div>
         </div>
       </div>

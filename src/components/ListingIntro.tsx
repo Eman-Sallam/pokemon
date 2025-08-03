@@ -3,9 +3,13 @@ import { Link } from 'react-router-dom';
 
 type Props = {
   viewType: 'pagination' | 'load-more';
+  isLoading: boolean;
 };
 
-const ListingIntro = ({ viewType = 'pagination' }: Props) => {
+const ListingIntro = ({
+  viewType = 'pagination',
+  isLoading = false,
+}: Props) => {
   return (
     <div className='text-center mb-10'>
       <h1 className='text-2xl font-bold flex justify-center items-center gap-1 mb-6'>
@@ -19,9 +23,11 @@ const ListingIntro = ({ viewType = 'pagination' }: Props) => {
       <div className='flex justify-center items-center gap-3 mb-5'>
         <Link
           to='/'
-          className={`btn rounded-md ${
-            viewType === 'pagination' && 'btn-neutral'
-          }`}
+          className={`btn rounded-md  ${
+            viewType === 'pagination' ? 'btn-neutral' : ''
+          }
+          ${isLoading ? 'btn-disabled animate-pulse' : ''}
+          `}
         >
           Pagination View
         </Link>
@@ -29,8 +35,10 @@ const ListingIntro = ({ viewType = 'pagination' }: Props) => {
         <Link
           to='/load-more-listing'
           className={`btn rounded-md ${
-            viewType === 'load-more' && 'btn-neutral'
-          }`}
+            viewType === 'load-more' ? 'btn-neutral' : ''
+          }
+          ${isLoading ? 'btn-disabled animate-pulse' : ''}
+          `}
         >
           Load More View
         </Link>

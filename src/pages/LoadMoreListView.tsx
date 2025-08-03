@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { getIdFromUrl } from '../utils/getIdFromUrl';
 import { useInfinitePokemonList } from '../hooks/useInfinitePokemonList';
 import type { PokemonNameAPI } from '../types/pokemon';
+import ErrorMessage from '../components/ErrorMessage';
 
 const pageSize = 10;
 
@@ -24,7 +25,7 @@ const LoadMoreListView = () => {
 
   return (
     <>
-      <ListingIntro viewType='load-more' />
+      <ListingIntro viewType='load-more' isLoading={isLoading} />
 
       {isLoading ? (
         <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5'>
@@ -33,9 +34,7 @@ const LoadMoreListView = () => {
           ))}
         </div>
       ) : isError ? (
-        <div className='text-center my-8 text-error'>
-          Error loading Pokémon. Please try again.
-        </div>
+        <ErrorMessage message='Error While loading Pokémon List.' />
       ) : (
         <>
           <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5'>
