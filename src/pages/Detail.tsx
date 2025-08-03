@@ -42,30 +42,30 @@ const PokemonDetail = () => {
 
   return (
     <>
-      <Link to='/' className='btn rounded-md mb-4'>
+      <Link to='/' className='btn rounded-md mb-6'>
         <ArrowLeftIcon className='size-4' />
         Back to List
       </Link>
 
       {/* Pokemon Detail Box */}
-      <div className='p-4 max-w-4xl mx-auto'>
+      <div className='max-w-4xl mx-auto'>
         {/* Header */}
-        <div className='bg-gradient-to-r to-sky-500 from-indigo-500 p-6 rounded-t-lg text-white text-center'>
-          <h1 className='text-2xl font-bold capitalize flex justify-center items-center gap-1 mb-2'>
+        <div className='bg-gradient-to-r to-sky-500 from-indigo-500 p-4 lg:p-6 rounded-t-lg text-white text-center'>
+          <h1 className='text-lg lg:text-2xl font-bold capitalize flex justify-center items-center gap-1 mb-2'>
             <BoltIcon className='size-6' />
             {name}
           </h1>
-          <p className='text-sm text-gray-300'>
+          <p className='text-sm text-gray-200'>
             #{String(id).padStart(3, '0')}
           </p>
         </div>
 
         {/* Content */}
-        <div className='bg-white rounded-b-xl p-8 grid md:grid-cols-2 gap-12 shadow'>
+        <div className='bg-white rounded-b-xl p-6 grid md:grid-cols-2 gap-12 shadow'>
           {/* Left Side */}
           <div className='flex flex-col items-center'>
             <div className='avatar'>
-              <div className='h-72 rounded-full bg-gray-100'>
+              <div className='h-60 lg:h-72 rounded-full bg-gray-100'>
                 <img
                   src={
                     sprites?.other?.['official-artwork']?.front_default ||
@@ -94,7 +94,7 @@ const PokemonDetail = () => {
               ))}
             </div>
 
-            <div className='mt-6 grid grid-cols-2 gap-6  w-full'>
+            <div className='mt-6 grid grid-cols-2 gap-3 lg:gap-6  w-full'>
               <div className='text-center bg-gray-100 p-4 rounded-md'>
                 <p className='text-sm text-mute mb-1 flex items-center justify-center gap-1'>
                   <img src={ruler} alt='Height' className='w-5 ' />
@@ -142,7 +142,7 @@ const PokemonDetail = () => {
                   <span
                     className={`badge rounded-full capitalize font-semibold ${
                       a.is_hidden
-                        ? 'badge-ghost'
+                        ? 'badge-ghost bg-gray-100'
                         : 'badge-outline border-gray-300 '
                     }`}
                   >

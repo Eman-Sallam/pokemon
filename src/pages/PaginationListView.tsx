@@ -29,7 +29,7 @@ const PaginationListView = () => {
     <>
       <ListingIntro viewType='pagination' isLoading={isLoading} />
       {isLoading ? (
-        <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5'>
+        <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-5'>
           {Array.from({ length: skeletonCount }).map((_, index) => (
             <SkeletonCard key={index} />
           ))}
@@ -38,7 +38,7 @@ const PaginationListView = () => {
         <ErrorMessage message='Error While loading Pokémon List.' />
       ) : (
         <>
-          <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5'>
+          <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-5'>
             {pokemonList.map((pokemon) => {
               const id = getIdFromUrl(pokemon.url);
               const image = `${POKEMON_IMAGE_BASE}/other/official-artwork/${id}.png`;

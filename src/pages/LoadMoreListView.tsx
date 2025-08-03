@@ -28,7 +28,7 @@ const LoadMoreListView = () => {
       <ListingIntro viewType='load-more' isLoading={isLoading} />
 
       {isLoading ? (
-        <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5'>
+        <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-5'>
           {Array.from({ length: pageSize }).map((_, i) => (
             <SkeletonCard key={i} />
           ))}
@@ -37,7 +37,7 @@ const LoadMoreListView = () => {
         <ErrorMessage message='Error While loading Pokémon List.' />
       ) : (
         <>
-          <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5'>
+          <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-5'>
             {allPokemon.map((pokemon) => {
               const id = getIdFromUrl(pokemon.url);
               const image = `${POKEMON_IMAGE_BASE}/other/official-artwork/${id}.png`;

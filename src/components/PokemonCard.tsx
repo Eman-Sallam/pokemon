@@ -27,7 +27,7 @@ const PokemonCard = ({ name, image, id }: Props) => {
         </div>
 
         <div className='card-body items-center py-4 gap-0'>
-          <h2 className='card-title capitalize'>{name}</h2>
+          <h2 className='card-title capitalize text-base lg:text-lg'>{name}</h2>
           <p className='text-mute'>#{String(id).padStart(3, '0')}</p>
         </div>
       </div>
