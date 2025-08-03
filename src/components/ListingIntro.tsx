@@ -7,7 +7,7 @@ type Props = {
 
 const ListingIntro = ({ viewType = 'pagination' }: Props) => {
   return (
-    <div className='text-center'>
+    <div className='text-center mb-10'>
       <h1 className='text-2xl font-bold flex justify-center items-center gap-1 mb-6'>
         <BoltIcon className='size-6 text-yellow-400' />
         Pokédex

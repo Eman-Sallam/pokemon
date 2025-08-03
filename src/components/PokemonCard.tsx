@@ -1,27 +1,26 @@
 type Props = {
   name: string;
   image: string;
+  id?: number;
 };
 
-const PokemonCard = ({ name, image }: Props) => {
+const PokemonCard = ({ name, image, id }: Props) => {
   return (
     <>
       <div className='card bg-base-100 w-full shadow-sm hover:shadow-xl transition'>
         <div className='px-4 pt-4'>
           <figure className=' bg-gray-100  rounded-lg'>
             <img
-              src='https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp'
-              alt='Shoes'
-              className='rounded-xl h-40 object-contain'
+              src={image}
+              alt={name}
+              className='rounded-xl h-44 object-contain'
             />
           </figure>
         </div>
 
-        <div className='card-body items-center text-center'>
-          <h2 className='card-title'>Card Title</h2>
-          <p className='text-mute'>
-            A card component has a figure A card component has a figure
-          </p>
+        <div className='card-body items-center py-4 gap-0'>
+          <h2 className='card-title capitalize'>{name}</h2>
+          <p className='text-mute'>#{String(id).padStart(3, '0')}</p>
         </div>
       </div>
     </>

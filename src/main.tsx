@@ -1,26 +1,16 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import PaginationListView from './pages/PaginationListView.tsx';
-import LoadMoreListView from './pages/LoadMoreListView.tsx';
-import PokemonDetail from './pages/Detail.tsx';
-import App from './App.tsx';
+import { RouterProvider } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { router } from './router';
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <App />, // For Layout
-    children: [
-      { index: true, element: <PaginationListView /> },
-      { path: 'load-more-listing', element: <LoadMoreListView /> },
-      { path: 'pokemon/:id', element: <PokemonDetail /> },
-    ],
-  },
-]);
+const queryClient = new QueryClient();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   </StrictMode>
 );
