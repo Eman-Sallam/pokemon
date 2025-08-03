@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  darkMode: 'media',
   theme: {
     extend: {
       colors: {
@@ -12,4 +13,8 @@ export default {
     },
   },
   plugins: [require('daisyui')],
+  daisyui: {
+    themes: ['light'], //  allow light theme
+    darkTheme: false, // disable dark mode entirely in DaisyUI
+  },
 };
