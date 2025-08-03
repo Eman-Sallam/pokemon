@@ -8,10 +8,11 @@ A modern, type-safe Pokémon browser built with **React**, **Vite**, **TypeScrip
 
 ## ⚙️ Tech Stack
 
-- **React** (with Vite) – Fast and modern frontend development
+- **React + Vite** – Fast and modern frontend development
 - **TypeScript** – Type-safe development for better reliability
 - **Tailwind CSS** + **DaisyUI** – Utility-first CSS with beautiful UI components
-- **React Router v7** – Declarative routing with `createBrowserRouter`
+- **Heroicons** – SVG icon library
+- **React Router v7** – modern routing API and Declarative routing with `createBrowserRouter`
 - **React Query (TanStack)** – For efficient data fetching and caching
 - **Axios** – HTTP client for working with REST APIs
 - **Error Boundaries + React Suspense** – Graceful runtime error handling and code splitting
