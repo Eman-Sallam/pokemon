@@ -25,7 +25,7 @@ A modern, type-safe Pokémon browser built with **React**, **Vite**, **TypeScrip
 - **Vercel** –
   - Deployment platform with automatic builds and previews
   - CDN-backed hosting
-  - Live deployment: [https://pokemon-nemo.vercel.app](https://pokemon-nemo.vercel.app)
+  - Live deployment: [https://pokescope.vercel.app/](https://pokescope.vercel.app/p)
 
 ---
 
