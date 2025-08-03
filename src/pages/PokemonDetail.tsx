@@ -7,9 +7,14 @@ import SkeletonDetails from '../components/PokemonDetail/SkeletonDetails';
 import BackButton from '../components/PokemonDetail/BackButton';
 import ErrorBoundary from '../components/shared/ErrorBoundary';
 import ErrorMessage from '../components/shared/ErrorMessage';
+import NotFoundPokemon from '../components/shared/NotFoundPokemon';
 
 const PokemonDetail = () => {
   const { id } = useParams();
+
+  // id should be a number
+  const parsedId = Number(id);
+  const isValidId = !isNaN(parsedId) && parsedId > 0;
 
   const { data, isLoading, isFetching, isError } =
     useQuery<PokemonDetailResponse>({
@@ -19,7 +24,12 @@ const PokemonDetail = () => {
         return res.data;
       },
       enabled: !!id,
+      retry: false, // prevents retrying 404s
     });
+
+  if (!isValidId || isError || !data) {
+    return <NotFoundPokemon />;
+  }
 
   if (isLoading || isFetching) return <SkeletonDetails />;
 

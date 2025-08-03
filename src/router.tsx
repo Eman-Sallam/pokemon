@@ -5,7 +5,7 @@ import NotFoundPage from './pages/NotFound';
 const App = lazy(() => import('./App'));
 const PaginationListView = lazy(() => import('./pages/PaginationListView'));
 const LoadMoreListView = lazy(() => import('./pages/LoadMoreListView'));
-const PokemonDetail = lazy(() => import('./pages/Detail'));
+const PokemonDetail = lazy(() => import('./pages/PokemonDetail'));
 
 export const router = createBrowserRouter([
   {
