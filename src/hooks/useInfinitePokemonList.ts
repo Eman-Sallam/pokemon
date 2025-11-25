@@ -1,9 +1,9 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import api from '../lib/axios';
 import type { PokemonListResponse } from '../types/pokemon';
 
 export const useInfinitePokemonList = (limit = 10) =>
-  useInfiniteQuery<
+  useSuspenseInfiniteQuery<
     PokemonListResponse, // TQueryFnData
     Error, // TError
     PokemonListResponse, // TData
