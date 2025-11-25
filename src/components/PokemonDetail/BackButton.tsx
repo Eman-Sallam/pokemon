@@ -1,14 +1,16 @@
+'use client';
+
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 
 const BackButton = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const handleBack = () => {
     if (window.history.length > 1) {
-      navigate(-1);
+      router.back();
     } else {
-      navigate('/');
+      router.push('/pagination/1');
     }
   };
 

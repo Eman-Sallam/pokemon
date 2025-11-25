@@ -2,20 +2,21 @@
 
 [![Live Demo](https://img.shields.io/badge/Live-Demo-green?style=for-the-badge)](https://pokescope.vercel.app/)
 
-A modern, type-safe Pokémon browser built with **React**, **Vite**, **TypeScript**, **Tailwind CSS**, **React Query**, and **DaisyUI**. Explore Pokémon using both pagination and "Load More" view, with animated UI, error boundaries, and suspense fallback.
+A modern, type-safe Pokémon browser built with **Next.js v16**, **React**, **TypeScript**, **Tailwind CSS**, **React Query**, and **DaisyUI**. Explore Pokémon using both pagination and "Load More" view, with animated UI, error boundaries, and suspense fallback.
 
 ---
 
 ## ⚙️ Tech Stack
 
-- **React + Vite** – Fast and modern frontend development
+- **Next.js v16** – React framework with App Router for server-side rendering and optimized performance
+- **React 19** – Latest React with modern features
 - **TypeScript** – Type-safe development for better reliability
 - **Tailwind CSS** + **DaisyUI** – Utility-first CSS with beautiful UI components
 - **Heroicons** – SVG icon library
-- **React Router v7** – modern routing API and Declarative routing with `createBrowserRouter`
+- **App Router** – Next.js file-based routing with server and client components
 - **React Query (TanStack)** – For efficient data fetching and caching
 - **Axios** – HTTP client for working with REST APIs
-- **Error Boundaries + React Suspense** – Graceful runtime error handling and code splitting
+- **Error Boundaries** – Graceful runtime error handling
 - **PokeAPI** –
 
   - Open-source Pokémon API
@@ -25,7 +26,7 @@ A modern, type-safe Pokémon browser built with **React**, **Vite**, **TypeScrip
 - **Vercel** –
   - Deployment platform with automatic builds and previews
   - CDN-backed hosting
-  - Live deployment: [https://pokescope.vercel.app/](https://pokescope.vercel.app/p)
+  - Live deployment: [https://pokescope.vercel.app/](https://pokescope.vercel.app/)
 
 ---
 
@@ -39,7 +40,9 @@ A modern, type-safe Pokémon browser built with **React**, **Vite**, **TypeScrip
 - ❓ Pokémon Not Found handling for invalid Pokémon IDs
 - 📱 Responsive Design
 - 🎯 Type-safe API handling with `axios` + `react-query`
-- 🧭 Smooth routing with React Router v7
+- 🧭 File-based routing with Next.js App Router
+- ⚡ Server-side rendering and optimized performance
+- 🎨 Image optimization with Next.js Image component support
 
 ---
 
@@ -56,3 +59,52 @@ npm install
 # 3. Start development server
 npm run dev
 ```
+
+The app will be available at `http://localhost:3000`
+
+---
+
+## 🏗️ Project Structure
+
+```
+pokemon/
+├── src/
+│   ├── app/                    # Next.js App Router
+│   │   ├── layout.tsx          # Root layout with providers
+│   │   ├── page.tsx            # Home page (redirects to pagination)
+│   │   ├── pagination/
+│   │   │   └── [page]/
+│   │   │       └── page.tsx    # Pagination view
+│   │   ├── load-more-listing/
+│   │   │   └── page.tsx        # Load more view
+│   │   ├── pokemon/
+│   │   │   └── [id]/
+│   │   │       └── page.tsx     # Pokémon detail page
+│   │   └── not-found.tsx        # 404 page
+│   ├── components/             # React components
+│   ├── hooks/                  # Custom React hooks
+│   ├── lib/                    # Utilities and API client
+│   ├── types/                  # TypeScript type definitions
+│   └── utils/                  # Helper functions
+├── public/                     # Static assets
+└── package.json
+```
+
+---
+
+## 🛠️ Available Scripts
+
+- `npm run dev` – Start development server
+- `npm run build` – Build for production
+- `npm run start` – Start production server
+- `npm run lint` – Run ESLint
+
+---
+
+## 📝 Notes
+
+- Built with Next.js v16 App Router for optimal performance
+- Uses React Server Components where possible
+- Client components are marked with `'use client'` directive
+- Image optimization configured for external Pokémon images
+- Type-safe routing with TypeScript

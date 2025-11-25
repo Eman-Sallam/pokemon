@@ -1,3 +1,5 @@
+'use client';
+
 import { Component, type ReactNode } from 'react';
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 
@@ -29,7 +31,7 @@ class ErrorBoundary extends Component<Props, State> {
   };
 
   handleRedirect = () => {
-    window.location.href = '/'; // navigate to home
+    window.location.href = '/pagination/1'; // navigate to home
   };
 
   render() {

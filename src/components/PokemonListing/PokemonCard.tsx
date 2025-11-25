@@ -1,5 +1,3 @@
-import placeholderImg from '../../assets/ditto-placeholder.png';
-
 type Props = {
   name: string;
   image: string;
@@ -19,7 +17,7 @@ const PokemonCard = ({ name, image, id }: Props) => {
               onError={(e) => {
                 const target = e.currentTarget;
                 target.onerror = null; // prevent infinite loop
-                target.src = placeholderImg;
+                target.src = '/ditto-placeholder.png';
               }}
               className='rounded-xl h-44 object-contain transition-all duration-300'
             />

@@ -1,4 +1,3 @@
-import placeholderImg from '../../assets/ditto-placeholder.png';
 import ruler from '../../assets/ruler.svg';
 import weightIco from '../../assets/weight.svg';
 import type { PokemonSprites, PokemonType } from '../../types/pokemonDetails';
@@ -18,14 +17,14 @@ const PokemonDetailLeft = ({ sprites, name, types, height, weight }: Props) => (
         <img
           src={
             sprites?.other?.['official-artwork']?.front_default ||
-            placeholderImg
+            '/ditto-placeholder.png'
           }
           alt={name}
           className='object-contain transition-all duration-300'
           loading='lazy'
           onError={(e) => {
             e.currentTarget.onerror = null;
-            e.currentTarget.src = placeholderImg;
+            e.currentTarget.src = '/ditto-placeholder.png';
           }}
         />
       </div>
@@ -45,14 +44,14 @@ const PokemonDetailLeft = ({ sprites, name, types, height, weight }: Props) => (
     <div className='mt-6 grid grid-cols-2 gap-3 lg:gap-6 w-full'>
       <div className='text-center bg-gray-100 p-4 rounded-md'>
         <p className='text-sm text-mute mb-1 flex items-center justify-center gap-1'>
-          <img src={ruler} alt='Height' className='w-5' />
+          <img src={ruler.src} alt='Height' className='w-5' />
           Height
         </p>
         <p className='font-bold'>{height / 10} m</p>
       </div>
       <div className='text-center bg-gray-100 p-4 rounded-md'>
         <p className='text-sm text-mute mb-1 flex items-center justify-center gap-1'>
-          <img src={weightIco} alt='Weight' className='w-5' />
+          <img src={weightIco.src} alt='Weight' className='w-5' />
           Weight
         </p>
         <p className='font-bold'>{weight / 10} kg</p>

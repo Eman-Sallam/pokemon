@@ -1,5 +1,5 @@
 import { BoltIcon } from '@heroicons/react/24/outline';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 type Props = {
   viewType: 'pagination' | 'load-more';
@@ -22,7 +22,7 @@ const ListingIntro = ({
 
       <div className='flex justify-center items-center gap-3 mb-5'>
         <Link
-          to='/'
+          href='/pagination/1'
           className={`btn rounded-md  ${
             viewType === 'pagination' ? 'btn-neutral' : ''
           }
@@ -33,7 +33,7 @@ const ListingIntro = ({
         </Link>
 
         <Link
-          to='/load-more-listing'
+          href='/load-more-listing'
           className={`btn rounded-md ${
             viewType === 'load-more' ? 'btn-neutral' : ''
           }
