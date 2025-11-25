@@ -11,6 +11,6 @@ export const usePokemonList = (page: number, limit = 10) => {
       const res = await api.get(`/pokemon?limit=${limit}&offset=${offset}`);
       return res.data;
     },
-    staleTime: 1000 * 60 * 5, // 5 mins
+    staleTime: 1000 * 60 * 60 * 12, // 12 hours
   });
 };

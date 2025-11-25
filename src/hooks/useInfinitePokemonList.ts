@@ -20,5 +20,5 @@ export const useInfinitePokemonList = (limit = 10) =>
       const totalLoaded = allPages.length * limit;
       return lastPage.next ? totalLoaded : undefined;
     },
-    staleTime: 1000 * 60 * 5,
+    staleTime: 1000 * 60 * 60 * 12, // 12 hours
   });
