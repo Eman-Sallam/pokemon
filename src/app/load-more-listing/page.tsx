@@ -29,8 +29,6 @@ const LoadMoreContent = () => {
       allPokemon.map((pokemon, index) => {
         const id = getIdFromUrl(pokemon.url);
         const image = `${POKEMON_IMAGE_BASE}/other/official-artwork/${id}.png`;
-        // Set priority for first 8 cards (likely above the fold)
-        const isPriority = index < 8;
 
         return (
           <Link
@@ -43,7 +41,7 @@ const LoadMoreContent = () => {
               name={pokemon.name}
               image={image}
               id={id}
-              priority={isPriority}
+              priority={index < 4}
             />
           </Link>
         );

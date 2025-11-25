@@ -33,7 +33,7 @@ const PokemonCard = ({ name, image, id, priority = false }: Props) => {
               height={176}
               className='rounded-xl h-44 object-contain transition-all duration-300'
               priority={priority}
-              loading={priority ? undefined : 'lazy'}
+              loading={priority ? 'eager' : 'lazy'}
               onError={handleError}
             />
           </figure>

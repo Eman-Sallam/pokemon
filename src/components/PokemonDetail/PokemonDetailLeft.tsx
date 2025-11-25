@@ -26,7 +26,8 @@ const PokemonDetailLeft = ({ sprites, name, types, height, weight }: Props) => (
           width={288}
           height={288}
           className='object-contain transition-all duration-300'
-          loading='lazy'
+          priority
+          loading='eager'
           onError={(e) => {
             e.currentTarget.onerror = null;
             e.currentTarget.src = '/ditto-placeholder.png';
