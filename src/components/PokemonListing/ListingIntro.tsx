@@ -12,10 +12,12 @@ const ListingIntro = ({
 }: Props) => {
   return (
     <div className='text-center mb-10'>
-      <h1 className='text-2xl font-bold flex justify-center items-center gap-1 mb-6'>
-        <BoltIcon className='size-6 text-yellow-400' aria-hidden='true' />
-        Pokédex
-      </h1>
+      <Link href='/' className='block'>
+        <h1 className='text-2xl font-bold flex justify-center items-center gap-1 mb-6 hover:opacity-80 transition-opacity cursor-pointer'>
+          <BoltIcon className='size-6 text-yellow-400' aria-hidden='true' />
+          Pokédex
+        </h1>
+      </Link>
       <p className='text-base text-mute mb-5'>
         Discover and explore Pokémon with page controls
       </p>
