@@ -12,7 +12,7 @@ const PokemonCard = ({ name, image, id }: Props) => {
           <figure className=' bg-gray-100  rounded-lg'>
             <img
               src={image}
-              alt={name}
+              alt={`${name} official artwork`}
               loading='lazy'
               onError={(e) => {
                 const target = e.currentTarget;
@@ -26,7 +26,9 @@ const PokemonCard = ({ name, image, id }: Props) => {
 
         <div className='card-body items-center py-4 gap-0'>
           <h2 className='card-title capitalize text-base lg:text-lg'>{name}</h2>
-          <p className='text-mute'>#{String(id).padStart(3, '0')}</p>
+          <p className='text-mute' aria-label={`Pokémon number ${id}`}>
+            #{String(id).padStart(3, '0')}
+          </p>
         </div>
       </div>
     </>

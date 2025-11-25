@@ -28,13 +28,22 @@ const LoadMoreContent = () => {
 
   return (
     <>
-      <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-5'>
+      <div
+        className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-5'
+        role='list'
+        aria-label='Pokémon list'
+      >
         {allPokemon.map((pokemon) => {
           const id = getIdFromUrl(pokemon.url);
           const image = `${POKEMON_IMAGE_BASE}/other/official-artwork/${id}.png`;
 
           return (
-            <Link href={`/pokemon/${id}`} key={pokemon.name}>
+            <Link
+              href={`/pokemon/${id}`}
+              key={pokemon.name}
+              role='listitem'
+              aria-label={`View details for ${pokemon.name}`}
+            >
               <PokemonCard name={pokemon.name} image={image} id={id} />
             </Link>
           );
@@ -43,19 +52,35 @@ const LoadMoreContent = () => {
 
       <div className='flex flex-col items-center mt-6'>
         {hasNextPage && !isFetchingNextPage && (
-          <button className='btn btn-outline' onClick={() => fetchNextPage()}>
+          <button
+            className='btn btn-outline'
+            onClick={() => fetchNextPage()}
+            aria-label='Load more Pokémon'
+          >
             Load More
           </button>
         )}
 
         <div className='flex flex-col items-center justify-center mt-6'>
           {isFetchingNextPage && (
-            <div className='flex items-center gap-2  mb-3 text-neutral-500'>
-              <span className='loading loading-spinner loading-md text-primary'></span>
-              Loading more Pokémon...
+            <div
+              className='flex items-center gap-2  mb-3 text-neutral-500'
+              role='status'
+              aria-live='polite'
+              aria-label='Loading more Pokémon'
+            >
+              <span
+                className='loading loading-spinner loading-md text-primary'
+                aria-hidden='true'
+              ></span>
+              <span>Loading more Pokémon...</span>
             </div>
           )}
-          <p className='text-sm text-neutral-500 mt-1'>
+          <p
+            className='text-sm text-neutral-500 mt-1'
+            role='status'
+            aria-live='polite'
+          >
             Showing {allPokemon.length} Pokémon
           </p>
         </div>

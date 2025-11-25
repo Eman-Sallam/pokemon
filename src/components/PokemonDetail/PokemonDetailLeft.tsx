@@ -21,7 +21,7 @@ const PokemonDetailLeft = ({ sprites, name, types, height, weight }: Props) => (
             sprites?.other?.['official-artwork']?.front_default ||
             '/ditto-placeholder.png'
           }
-          alt={name}
+          alt={`${name} official artwork`}
           className='object-contain transition-all duration-300'
           loading='lazy'
           onError={(e) => {
@@ -32,11 +32,12 @@ const PokemonDetailLeft = ({ sprites, name, types, height, weight }: Props) => (
       </div>
     </div>
 
-    <div className='flex gap-2 mt-6'>
+    <div className='flex gap-2 mt-6' role='list' aria-label='Pokémon types'>
       {types.map((t) => (
         <span
           key={t.type.name}
           className='badge badge-secondary rounded-full capitalize'
+          role='listitem'
         >
           {t.type.name}
         </span>
@@ -46,17 +47,24 @@ const PokemonDetailLeft = ({ sprites, name, types, height, weight }: Props) => (
     <div className='mt-6 grid grid-cols-2 gap-3 lg:gap-6 w-full'>
       <div className='text-center bg-gray-100 p-4 rounded-md'>
         <p className='text-sm text-mute mb-1 flex items-center justify-center gap-1'>
-          <img src={ruler.src} alt='Height' className='w-5' />
+          <img src={ruler.src} alt='' className='w-5' aria-hidden='true' />
           Height
         </p>
-        <p className='font-bold'>{height / 10} m</p>
+        <p className='font-bold' aria-label={`Height: ${height / 10} meters`}>
+          {height / 10} m
+        </p>
       </div>
       <div className='text-center bg-gray-100 p-4 rounded-md'>
         <p className='text-sm text-mute mb-1 flex items-center justify-center gap-1'>
-          <img src={weightIco.src} alt='Weight' className='w-5' />
+          <img src={weightIco.src} alt='' className='w-5' aria-hidden='true' />
           Weight
         </p>
-        <p className='font-bold'>{weight / 10} kg</p>
+        <p
+          className='font-bold'
+          aria-label={`Weight: ${weight / 10} kilograms`}
+        >
+          {weight / 10} kg
+        </p>
       </div>
     </div>
   </div>

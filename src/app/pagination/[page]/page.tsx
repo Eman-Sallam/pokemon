@@ -53,12 +53,21 @@ const PaginationContent = () => {
 
   return (
     <>
-      <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-5'>
+      <div
+        className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-5'
+        role='list'
+        aria-label='Pokémon list'
+      >
         {pokemonList.map((pokemon) => {
           const id = getIdFromUrl(pokemon.url);
           const image = `${POKEMON_IMAGE_BASE}/other/official-artwork/${id}.png`;
           return (
-            <Link href={`/pokemon/${id}`} key={pokemon.name}>
+            <Link
+              href={`/pokemon/${id}`}
+              key={pokemon.name}
+              role='listitem'
+              aria-label={`View details for ${pokemon.name}`}
+            >
               <PokemonCard name={pokemon.name} image={image} id={id} />
             </Link>
           );
@@ -66,8 +75,16 @@ const PaginationContent = () => {
       </div>
 
       {isFetching ? (
-        <p className='text-center text-sm mt-2'>
-          <span className='loading loading-spinner loading-md me-2'></span>
+        <p
+          className='text-center text-sm mt-2'
+          role='status'
+          aria-live='polite'
+          aria-label='Fetching next page'
+        >
+          <span
+            className='loading loading-spinner loading-md me-2'
+            aria-hidden='true'
+          ></span>
           Fetching next page…
         </p>
       ) : (

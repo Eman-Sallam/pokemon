@@ -15,9 +15,13 @@ const BackButton = () => {
   };
 
   return (
-    <button onClick={handleBack} className='btn rounded-md mb-6'>
-      <ArrowLeftIcon className='size-4' />
-      Back to List
+    <button
+      onClick={handleBack}
+      className='btn rounded-md mb-6'
+      aria-label='Go back to Pokémon list'
+    >
+      <ArrowLeftIcon className='size-4' aria-hidden='true' />
+      <span>Back to List</span>
     </button>
   );
 };
