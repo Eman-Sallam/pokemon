@@ -1,8 +1,8 @@
 # Pokémon 🧭
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-green?style=for-the-badge)](https://pokescope.vercel.app/)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-green?style=for-the-badge)](https://pokescope.vercel.app/) [![Repository](https://img.shields.io/badge/Repository-GitHub-black?style=for-the-badge&logo=github)](https://github.com/Eman-Sallam/pokemon)
 
-A modern, type-safe Pokémon browser built with **Next.js v16**, **React**, **TypeScript**, **Tailwind CSS**, **React Query**, and **DaisyUI**. Explore Pokémon using both pagination and "Load More" view, with animated UI, error boundaries, and suspense fallback.
+A modern, type-safe Pokémon browser built with **Next.js v16**, **React**, **TypeScript**, **Tailwind CSS**, **React Query**, and **DaisyUI**. Explore Pokémon using both "pagination" and "Load More" view, with animated UI, error boundaries, and suspense fallback.
 
 ---
 
@@ -18,33 +18,25 @@ A modern, type-safe Pokémon browser built with **Next.js v16**, **React**, **Ty
 - **React Suspense** – For declarative loading state management
 - **Axios** – HTTP client for working with REST APIs
 - **Error Boundaries** – Graceful runtime error handling
-- **PokeAPI** –
-
-  - Open-source Pokémon API
-  - Used to fetch Pokémon data (listing, details)
-  - Docs: [https://pokeapi.co](https://pokeapi.co)
-
-- **Vercel** –
-  - Deployment platform with automatic builds and previews
-  - CDN-backed hosting
-  - Live deployment: [https://pokescope.vercel.app/](https://pokescope.vercel.app/)
+- **PokeAPI** – Open-source Pokémon API for fetching Pokémon data (listing, details). Docs: [https://pokeapi.co](https://pokeapi.co)
+- **Vercel** – Deployment platform with CDN-backed hosting. Live: [https://pokescope.vercel.app/](https://pokescope.vercel.app/)
 
 ---
 
 ## 🚀 Features
 
-- ⚡ Explore Pokémon with Pagination & Load More Views
-- 🔍 Pokémon Detail Pages with stats, abilities, types
-- 🪄 Skeleton Loaders & Pokémon Spinners & Image Placeholder for better UX
-- ⏳ React Suspense for declarative loading state management
-- 💥 Catch runtime crashes and provide fallback UI with retry options with Error Boundaries
-- ❌ Graceful 404 Page for unmatched routes
-- ❓ Pokémon Not Found handling for invalid Pokémon IDs
-- 📱 Responsive Design
-- 🎯 Type-safe API handling with `axios` + `react-query`
-- 🧭 File-based routing with Next.js App Router
-- ⚡ Server-side rendering and optimized performance
-- 🎨 Image optimization with Next.js Image component support
+- ⚡ **Pagination & Load More Views** – Two navigation patterns for browsing Pokémon
+- 🔍 **Pokémon Detail Pages** – Comprehensive details with stats, abilities, types, height, and weight
+- 📱 **Fully Responsive** – Optimized for desktop, tablet, and mobile devices
+- 🪄 **Loading States** – Skeleton loaders and spinners for smooth user experience
+- 💥 **Error Boundaries** – Catch runtime crashes and provide fallback UI with retry options
+- ❌ **404 Page** – Graceful error page for unmatched routes
+- ❓ **Not Found Handling** – Pokémon Not Found handling for invalid Pokémon IDs
+- ⏳ **React Suspense** – Declarative loading state management
+- 🎯 **Type-safe API** – TypeScript with `axios` + `react-query` for data fetching
+- ⚡ **Performance Optimization** – Next.js Image component, code splitting, and React Query caching
+- ♿ **Accessibility** – Semantic HTML, ARIA labels, keyboard navigation, and WCAG compliance
+- 🧭 **Server-Side Rendering** – Next.js App Router with SSR for detail pages and SEO optimization
 
 ---
 
@@ -69,124 +61,43 @@ The app will be available at `http://localhost:3000`
 ## 🏗️ Project Structure
 
 ```
-pokemon/
-├── src/
-│   ├── app/                    # Next.js App Router
-│   │   ├── layout.tsx          # Root layout with providers
-│   │   ├── page.tsx            # Home page (redirects to pagination)
-│   │   ├── pagination/
-│   │   │   └── [page]/
-│   │   │       └── page.tsx    # Pagination view
-│   │   ├── load-more-listing/
-│   │   │   └── page.tsx        # Load more view
-│   │   ├── pokemon/
-│   │   │   └── [id]/
-│   │   │       └── page.tsx     # Pokémon detail page
-│   │   └── not-found.tsx        # 404 page
-│   ├── components/             # React components
-│   ├── hooks/                  # Custom React hooks
-│   ├── lib/                    # Utilities and API client
-│   ├── types/                  # TypeScript type definitions
-│   └── utils/                  # Helper functions
-├── public/                     # Static assets
-└── package.json
+src/
+├── app/              # Next.js App Router (pages & layouts)
+├── components/       # React components (PokemonListing, PokemonDetail)
+├── hooks/            # Custom hooks (usePokemonList, useInfinitePokemonList)
+├── lib/              # API client (axios configuration)
+├── types/            # TypeScript definitions
+└── utils/            # Helper functions
 ```
-
----
-
-## 🛠️ Available Scripts
-
-- `npm run dev` – Start development server
-- `npm run build` – Build for production
-- `npm run start` – Start production server
-- `npm run lint` – Run ESLint
 
 ---
 
 ## 🔄 Rendering Strategy
 
-This project uses a hybrid rendering approach, leveraging both **Server-Side Rendering (SSR)** and **Client-Side Rendering (CSR)** based on the page requirements:
+This project uses a hybrid rendering approach, balancing SEO, performance, and interactivity.
 
-### Server-Side Rendered (SSR) Pages
+### Server-Side Rendering (SSR)
 
-These pages are rendered on the server for better SEO and initial load performance:
+Used where SEO and instant content matter:
 
-- **`/` (Home)** - Server Component that redirects to pagination
-- **`/pokemon/[id]`** - Pokémon detail page
-  - Fetches data on the server using async/await
-  - Includes dynamic metadata generation for SEO
-  - Better search engine indexing
-  - Faster initial page load with pre-rendered content
-- **`/not-found`** - 404 error page (Server Component)
+- **`/pokemon/[id]` (Pokémon Detail Page)**
+  - Fetches data on the server
+  - Fast initial load and fully SEO-indexed
+  - Works even if JS is disabled
+- **`/not-found` and root redirects**
+  - Rendered server-side for correctness and reliability
 
-### Client-Side Rendered (CSR) Pages
+### Client-Side Rendering (CSR) with React Query
 
-These pages use client-side rendering for interactive features:
+Used on interactive, dynamic pages:
 
-- **`/pagination/[page]`** - Pagination view
-  - Uses React Query with Suspense mode for data fetching and caching
-  - React Suspense boundaries with skeleton loaders for loading states
-  - Client-side navigation and state management
-  - Interactive pagination controls
-- **`/load-more-listing`** - Load more view
-  - Uses React Query's infinite queries with Suspense mode
-  - React Suspense boundaries for initial loading
-  - Client-side "Load More" button interactions
-  - Dynamic content loading
+- **`/pagination/[page]`** – Client component with React Query + Suspense
+- **`/load-more-listing`** – Infinite query for "Load More" behavior
+- **Benefits**: caching, optimistic updates, instant refetch, smooth UX
 
-### Why This Approach?
+This architecture provides:
 
-- **SSR for Detail Pages**: Pokémon detail pages benefit from SSR for SEO, as each Pokémon has unique content that should be indexed by search engines.
-- **CSR for Listing Pages**: Listing pages use CSR to provide smooth, interactive pagination and infinite scrolling without full page reloads.
-- **Best of Both Worlds**: Combines the SEO benefits of SSR with the interactivity of CSR where needed.
-
----
-
-## ⏳ Loading State Management with Suspense
-
-This project uses **React Suspense** for declarative loading state management:
-
-- **React Query Suspense Mode**: Enabled globally in the QueryClient configuration
-- **Automatic Suspense Boundaries**: Next.js App Router automatically creates Suspense boundaries for `loading.tsx` files
-- **Manual Suspense Boundaries**: Client components use `<Suspense>` with custom fallbacks for React Query data fetching
-- **Skeleton Loaders**: Custom skeleton components provide visual feedback during loading
-- **Background Refetching**: `isFetching` states handle background data updates without suspending
-
-### How It Works
-
-1. **Server Components** (`/pokemon/[id]`): Next.js automatically shows `loading.tsx` while the async component loads
-2. **Client Components** (`/pagination/[page]`, `/load-more-listing`): React Query throws promises when data is loading, which Suspense catches and shows fallback UI
-3. **Error Handling**: Error Boundaries catch errors, while React Query's `isError` handles query-specific errors
-
----
-
----
-
-## ⚡ Performance Optimization
-
-- **Next.js Image Component**: Automatic image optimization with WebP/AVIF conversion, lazy loading, and responsive sizing
-- **Proper Image Dimensions**: Fixed width/height attributes to prevent layout shift (CLS)
-- **React Query Caching**: Data cached for 5 minutes to reduce API calls
-- **Code Splitting**: Automatic route-based code splitting and server-side rendering for smaller bundles
-- **Core Web Vitals**: Optimized for fast loading and reduced layout shift
-
----
-
-## ♿ Accessibility Enhancements
-
-- **Semantic HTML**: Proper HTML structure with ARIA landmarks and roles
-- **Keyboard Navigation**: Skip links, focus management, and full keyboard accessibility
-- **Screen Reader Support**: Comprehensive ARIA labels, alt text, and status announcements
-- **WCAG Compliance**: Follows accessibility guidelines for color contrast, responsive design, and error handling
-
----
-
-## 📝 Notes
-
-- Built with Next.js v16 App Router for optimal performance
-- Uses React Server Components where possible
-- Client components are marked with `'use client'` directive
-- Image optimization configured for external Pokémon images
-- Type-safe routing with TypeScript
-- Hybrid rendering strategy: SSR for detail pages, CSR for listing pages
-- React Suspense for declarative loading state management
+- 🚀 Fast SSR for detail pages
+- ⚡ Highly interactive client-side lists
+- 🔍 Better SEO for Pokémon detail pages
+- 💾 Cached browsing experience using React Query
