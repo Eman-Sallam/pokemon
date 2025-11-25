@@ -12,6 +12,19 @@ interface PageProps {
   params: Promise<{ id: string }>;
 }
 
+// ISR: Revalidate pages every hour (3600 seconds)
+// This ensures pages are regenerated in the background after the revalidation period
+export const revalidate = 3600; // 1 hour
+
+// Generate static params for the first 151 Pokemon (Gen 1) at build time
+// This pre-renders the most popular Pokemon for instant loading
+export async function generateStaticParams() {
+  const firstGenCount = 151;
+  return Array.from({ length: firstGenCount }, (_, i) => ({
+    id: String(i + 1),
+  }));
+}
+
 async function getPokemonData(
   id: string
 ): Promise<PokemonDetailResponse | null> {
