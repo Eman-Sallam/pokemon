@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense } from 'react';
+import { Suspense, useMemo } from 'react';
 import { POKEMON_IMAGE_BASE } from '@/constants';
 import Link from 'next/link';
 import { getIdFromUrl } from '@/utils/getIdFromUrl';
@@ -22,6 +22,35 @@ const LoadMoreContent = () => {
   const allPokemon: PokemonNameAPI[] =
     data.pages.flatMap((page) => page.results) ?? [];
 
+  // Memoize the Pokemon cards list to prevent recalculation on every render
+  // Only recalculates when allPokemon array changes
+  const pokemonCards = useMemo(
+    () =>
+      allPokemon.map((pokemon, index) => {
+        const id = getIdFromUrl(pokemon.url);
+        const image = `${POKEMON_IMAGE_BASE}/other/official-artwork/${id}.png`;
+        // Set priority for first 8 cards (likely above the fold)
+        const isPriority = index < 8;
+
+        return (
+          <Link
+            href={`/pokemon/${id}`}
+            key={pokemon.name}
+            role='listitem'
+            aria-label={`View details for ${pokemon.name}`}
+          >
+            <PokemonCard
+              name={pokemon.name}
+              image={image}
+              id={id}
+              priority={isPriority}
+            />
+          </Link>
+        );
+      }),
+    [allPokemon]
+  );
+
   if (isError) {
     return <ErrorMessage message='Error While loading Pokémon List.' />;
   }
@@ -33,28 +62,7 @@ const LoadMoreContent = () => {
         role='list'
         aria-label='Pokémon list'
       >
-        {allPokemon.map((pokemon, index) => {
-          const id = getIdFromUrl(pokemon.url);
-          const image = `${POKEMON_IMAGE_BASE}/other/official-artwork/${id}.png`;
-          // Set priority for first 8 cards (likely above the fold)
-          const isPriority = index < 8;
-
-          return (
-            <Link
-              href={`/pokemon/${id}`}
-              key={pokemon.name}
-              role='listitem'
-              aria-label={`View details for ${pokemon.name}`}
-            >
-              <PokemonCard
-                name={pokemon.name}
-                image={image}
-                id={id}
-                priority={isPriority}
-              />
-            </Link>
-          );
-        })}
+        {pokemonCards}
       </div>
 
       <div className='flex flex-col items-center mt-6'>

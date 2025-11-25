@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, memo } from 'react';
 
 type Props = {
   name: string;
@@ -49,4 +49,7 @@ const PokemonCard = ({ name, image, id, priority = false }: Props) => {
     </>
   );
 };
-export default PokemonCard;
+
+// Memoize the component to prevent unnecessary re-renders
+// Only re-renders when props (name, image, id, priority) change
+export default memo(PokemonCard);

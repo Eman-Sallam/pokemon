@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense } from 'react';
+import { Suspense, useMemo } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { usePokemonList } from '@/hooks/usePokemonList';
@@ -40,6 +40,34 @@ const PaginationContent = () => {
   const totalCount = data.count || 0;
   const totalPages = Math.ceil(totalCount / pageSize);
 
+  // Memoize the Pokemon cards list to prevent recalculation on every render
+  // Only recalculates when pokemonList array changes
+  const pokemonCards = useMemo(
+    () =>
+      pokemonList.map((pokemon, index) => {
+        const id = getIdFromUrl(pokemon.url);
+        const image = `${POKEMON_IMAGE_BASE}/other/official-artwork/${id}.png`;
+        // Set priority for first 8 cards (likely above the fold)
+        const isPriority = index < 8;
+        return (
+          <Link
+            href={`/pokemon/${id}`}
+            key={pokemon.name}
+            role='listitem'
+            aria-label={`View details for ${pokemon.name}`}
+          >
+            <PokemonCard
+              name={pokemon.name}
+              image={image}
+              id={id}
+              priority={isPriority}
+            />
+          </Link>
+        );
+      }),
+    [pokemonList]
+  );
+
   // guard invalid page (greater than max)
   useEffect(() => {
     if (totalPages > 0 && page > totalPages) {
@@ -58,27 +86,7 @@ const PaginationContent = () => {
         role='list'
         aria-label='Pokémon list'
       >
-        {pokemonList.map((pokemon, index) => {
-          const id = getIdFromUrl(pokemon.url);
-          const image = `${POKEMON_IMAGE_BASE}/other/official-artwork/${id}.png`;
-          // Set priority for first 8 cards (likely above the fold)
-          const isPriority = index < 8;
-          return (
-            <Link
-              href={`/pokemon/${id}`}
-              key={pokemon.name}
-              role='listitem'
-              aria-label={`View details for ${pokemon.name}`}
-            >
-              <PokemonCard
-                name={pokemon.name}
-                image={image}
-                id={id}
-                priority={isPriority}
-              />
-            </Link>
-          );
-        })}
+        {pokemonCards}
       </div>
 
       {isFetching ? (
