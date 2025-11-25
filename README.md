@@ -160,6 +160,27 @@ This project uses **React Suspense** for declarative loading state management:
 
 ---
 
+---
+
+## ⚡ Performance Optimization
+
+- **Next.js Image Component**: Automatic image optimization with WebP/AVIF conversion, lazy loading, and responsive sizing
+- **Proper Image Dimensions**: Fixed width/height attributes to prevent layout shift (CLS)
+- **React Query Caching**: Data cached for 5 minutes to reduce API calls
+- **Code Splitting**: Automatic route-based code splitting and server-side rendering for smaller bundles
+- **Core Web Vitals**: Optimized for fast loading and reduced layout shift
+
+---
+
+## ♿ Accessibility Enhancements
+
+- **Semantic HTML**: Proper HTML structure with ARIA landmarks and roles
+- **Keyboard Navigation**: Skip links, focus management, and full keyboard accessibility
+- **Screen Reader Support**: Comprehensive ARIA labels, alt text, and status announcements
+- **WCAG Compliance**: Follows accessibility guidelines for color contrast, responsive design, and error handling
+
+---
+
 ## 📝 Notes
 
 - Built with Next.js v16 App Router for optimal performance
