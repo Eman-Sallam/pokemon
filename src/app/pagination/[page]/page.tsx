@@ -58,9 +58,11 @@ const PaginationContent = () => {
         role='list'
         aria-label='Pokémon list'
       >
-        {pokemonList.map((pokemon) => {
+        {pokemonList.map((pokemon, index) => {
           const id = getIdFromUrl(pokemon.url);
           const image = `${POKEMON_IMAGE_BASE}/other/official-artwork/${id}.png`;
+          // Set priority for first 8 cards (likely above the fold)
+          const isPriority = index < 8;
           return (
             <Link
               href={`/pokemon/${id}`}
@@ -68,7 +70,12 @@ const PaginationContent = () => {
               role='listitem'
               aria-label={`View details for ${pokemon.name}`}
             >
-              <PokemonCard name={pokemon.name} image={image} id={id} />
+              <PokemonCard
+                name={pokemon.name}
+                image={image}
+                id={id}
+                priority={isPriority}
+              />
             </Link>
           );
         })}

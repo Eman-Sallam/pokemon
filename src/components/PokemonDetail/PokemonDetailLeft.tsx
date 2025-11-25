@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import ruler from '../../assets/ruler.svg';
 import weightIco from '../../assets/weight.svg';
 import type { PokemonSprites, PokemonType } from '../../types/pokemonDetails';
@@ -16,12 +17,14 @@ const PokemonDetailLeft = ({ sprites, name, types, height, weight }: Props) => (
   <div className='flex flex-col items-center'>
     <div className='avatar'>
       <div className='h-60 lg:h-72 rounded-full bg-gray-100'>
-        <img
+        <Image
           src={
             sprites?.other?.['official-artwork']?.front_default ||
             '/ditto-placeholder.png'
           }
           alt={`${name} official artwork`}
+          width={288}
+          height={288}
           className='object-contain transition-all duration-300'
           loading='lazy'
           onError={(e) => {
@@ -47,7 +50,14 @@ const PokemonDetailLeft = ({ sprites, name, types, height, weight }: Props) => (
     <div className='mt-6 grid grid-cols-2 gap-3 lg:gap-6 w-full'>
       <div className='text-center bg-gray-100 p-4 rounded-md'>
         <p className='text-sm text-mute mb-1 flex items-center justify-center gap-1'>
-          <img src={ruler.src} alt='' className='w-5' aria-hidden='true' />
+          <Image
+            src={ruler.src}
+            alt=''
+            width={20}
+            height={20}
+            className='w-5'
+            aria-hidden='true'
+          />
           Height
         </p>
         <p className='font-bold' aria-label={`Height: ${height / 10} meters`}>
@@ -56,7 +66,14 @@ const PokemonDetailLeft = ({ sprites, name, types, height, weight }: Props) => (
       </div>
       <div className='text-center bg-gray-100 p-4 rounded-md'>
         <p className='text-sm text-mute mb-1 flex items-center justify-center gap-1'>
-          <img src={weightIco.src} alt='' className='w-5' aria-hidden='true' />
+          <Image
+            src={weightIco.src}
+            alt=''
+            width={20}
+            height={20}
+            className='w-5'
+            aria-hidden='true'
+          />
           Weight
         </p>
         <p

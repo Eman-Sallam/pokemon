@@ -1,25 +1,40 @@
+'use client';
+
+import Image from 'next/image';
+import { useState } from 'react';
+
 type Props = {
   name: string;
   image: string;
   id?: number;
+  priority?: boolean;
 };
 
-const PokemonCard = ({ name, image, id }: Props) => {
+const PokemonCard = ({ name, image, id, priority = false }: Props) => {
+  const [imgSrc, setImgSrc] = useState(image);
+  const [hasError, setHasError] = useState(false);
+
+  const handleError = () => {
+    if (!hasError) {
+      setHasError(true);
+      setImgSrc('/ditto-placeholder.png');
+    }
+  };
+
   return (
     <>
       <div className='card bg-base-100 w-full  h-full shadow-sm hover:shadow-xl transition'>
         <div className='px-4 pt-4'>
           <figure className=' bg-gray-100  rounded-lg'>
-            <img
-              src={image}
+            <Image
+              src={imgSrc}
               alt={`${name} official artwork`}
-              loading='lazy'
-              onError={(e) => {
-                const target = e.currentTarget;
-                target.onerror = null; // prevent infinite loop
-                target.src = '/ditto-placeholder.png';
-              }}
+              width={200}
+              height={176}
               className='rounded-xl h-44 object-contain transition-all duration-300'
+              priority={priority}
+              loading={priority ? undefined : 'lazy'}
+              onError={handleError}
             />
           </figure>
         </div>

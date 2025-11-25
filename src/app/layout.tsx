@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import { Providers } from './providers';
 import ErrorBoundary from '@/components/shared/ErrorBoundary';
 import ScrollToTopButton from '@/components/shared/ScrollToTopButton';
@@ -29,12 +30,15 @@ export default function RootLayout({
         </a>
 
         {/* Preload placeholder image to avoid preload warnings */}
-        <img
+        <Image
           src='/ditto-placeholder.png'
           alt=''
+          width={1}
+          height={1}
           className='hidden'
           aria-hidden='true'
-          fetchPriority='low'
+          priority={false}
+          loading='lazy'
         />
         <ErrorBoundary>
           <Providers>
