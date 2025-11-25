@@ -1,75 +1,115 @@
-'use client';
-
-import { useParams } from 'next/navigation';
-import { useQuery } from '@tanstack/react-query';
+import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
+import axios from 'axios';
 import api from '@/lib/axios';
 import PokemonDetailBox from '@/components/PokemonDetail/PokemonDetailBox';
 import type { PokemonDetailResponse } from '@/types/pokemonDetails';
-import SkeletonDetails from '@/components/PokemonDetail/SkeletonDetails';
 import BackButton from '@/components/PokemonDetail/BackButton';
 import ErrorBoundary from '@/components/shared/ErrorBoundary';
 import ErrorMessage from '@/components/shared/ErrorMessage';
-import NotFoundPokemon from '@/components/shared/NotFoundPokemon';
 
-const PokemonDetail = () => {
-  const params = useParams();
-  const id = params?.id as string | undefined;
+interface PageProps {
+  params: Promise<{ id: string }>;
+}
 
-  // id should be a number
+async function getPokemonData(
+  id: string
+): Promise<PokemonDetailResponse | null> {
+  try {
+    const res = await api.get<PokemonDetailResponse>(`/pokemon/${id}`);
+    return res.data;
+  } catch (error) {
+    // If 404 or invalid, return null
+    if (axios.isAxiosError(error) && error.response?.status === 404) {
+      return null;
+    }
+    throw error; // Re-throw other errors
+  }
+}
+
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { id } = await params;
   const parsedId = Number(id);
   const isValidId = !isNaN(parsedId) && parsedId > 0;
 
-  const { data, isLoading, isFetching, isError } =
-    useQuery<PokemonDetailResponse>({
-      queryKey: ['pokemon', id],
-      queryFn: async () => {
-        const res = await api.get(`/pokemon/${id}`);
-        return res.data;
-      },
-      enabled: !!id && isValidId,
-      retry: false, // prevents retrying 404s
-    });
-
-  if (!isValidId || isError || (!data && !isLoading)) {
-    return <NotFoundPokemon />;
+  if (!isValidId) {
+    return {
+      title: 'Pokémon Not Found',
+    };
   }
 
-  if (isLoading || isFetching) return <SkeletonDetails />;
+  try {
+    const data = await getPokemonData(id);
+    if (!data) {
+      return {
+        title: 'Pokémon Not Found',
+      };
+    }
 
-  if (isError) return <ErrorMessage message='Error loading Pokémon Details.' />;
+    return {
+      title: `${
+        data.name.charAt(0).toUpperCase() + data.name.slice(1)
+      } - Pokédex`,
+      description: `View details for ${data.name}, including stats, abilities, types, height, and weight.`,
+    };
+  } catch {
+    return {
+      title: 'Pokémon Details',
+    };
+  }
+}
 
-  if (!data) return null;
+export default async function PokemonDetail({ params }: PageProps) {
+  const { id } = await params;
 
-  const {
-    name,
-    types,
-    height,
-    weight,
-    base_experience,
-    stats,
-    abilities,
-    sprites,
-  } = data;
+  // Validate id
+  const parsedId = Number(id);
+  const isValidId = !isNaN(parsedId) && parsedId > 0;
 
-  return (
-    <>
-      <BackButton />
+  if (!isValidId) {
+    notFound();
+  }
 
-      <ErrorBoundary>
-        <PokemonDetailBox
-          id={id!}
-          name={name}
-          sprites={sprites}
-          types={types}
-          height={height}
-          weight={weight}
-          stats={stats}
-          abilities={abilities}
-          base_experience={base_experience}
-        />
-      </ErrorBoundary>
-    </>
-  );
-};
+  try {
+    const data = await getPokemonData(id);
 
-export default PokemonDetail;
+    if (!data) {
+      notFound();
+    }
+
+    const {
+      name,
+      types,
+      height,
+      weight,
+      base_experience,
+      stats,
+      abilities,
+      sprites,
+    } = data;
+
+    return (
+      <>
+        <BackButton />
+
+        <ErrorBoundary>
+          <PokemonDetailBox
+            id={id}
+            name={name}
+            sprites={sprites}
+            types={types}
+            height={height}
+            weight={weight}
+            stats={stats}
+            abilities={abilities}
+            base_experience={base_experience}
+          />
+        </ErrorBoundary>
+      </>
+    );
+  } catch (error) {
+    return <ErrorMessage message='Error loading Pokémon Details.' />;
+  }
+}

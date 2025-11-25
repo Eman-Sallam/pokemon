@@ -1,3 +1,5 @@
+'use client';
+
 import ruler from '../../assets/ruler.svg';
 import weightIco from '../../assets/weight.svg';
 import type { PokemonSprites, PokemonType } from '../../types/pokemonDetails';
